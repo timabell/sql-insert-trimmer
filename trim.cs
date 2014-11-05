@@ -1,6 +1,8 @@
 
 namespace SqlTrimmer
 {
+	using System;
+	using System.IO;
 	public class Trimmer
 	{
 		public static int Main()
@@ -15,7 +17,11 @@ namespace SqlTrimmer
 	{
 		public void Trim(string path)
 		{
-			System.Console.Write("trimming " + path + "\n");
+			Console.Write("trimming " + path + "\n");
+			using (var file = File.Open(path, FileMode.Open))
+			{
+			}
+			Console.Write("done.");
 		}
 	}
 }
