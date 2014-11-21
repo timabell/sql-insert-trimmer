@@ -22,10 +22,15 @@ namespace SqlTrimmer
 
     public class Trimmer
     {
-        public static int Main()
+        public static int Main(string[] args)
         {
             var e = new Engine9();
-            e.Trim("test.sql");
+            if (args.Length < 1)
+            {
+                Console.Out.WriteLine("Usage: trim.exe file-to-trim.sql");
+                return 1;
+            }
+            e.Trim(args[0]);
             return 0; // all good
         }
     }
