@@ -85,6 +85,10 @@ namespace SqlTrimmer
                     } while (!file.EndOfStream);
                 }
             }
+            var backupPath = path + ".orig";
+            File.Delete(backupPath); // delete old backup
+            File.Move(path, backupPath);
+            File.Move(tempPath, path);
             Console.Write("done.");
         }
     }
