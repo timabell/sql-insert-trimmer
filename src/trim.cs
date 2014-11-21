@@ -1,4 +1,3 @@
-
 namespace SqlTrimmer
 {
     /*
@@ -19,6 +18,8 @@ namespace SqlTrimmer
      */
     using System;
     using System.IO;
+    using System.Text.RegularExpressions;
+
     public class Trimmer
     {
         public static int Main()
@@ -45,9 +46,39 @@ namespace SqlTrimmer
 
         public void Trim(string path)
         {
-            Console.Write("trimming " + path + "\n");
-            using (var file = File.Open(path, FileMode.Open))
+            var tempPath = path + ".tmp";
+            var first = true;
+            var count = 0;
+            using (var file = File.OpenText(path))
             {
+                using (var output = new StreamWriter(tempPath))
+                {
+                    do
+                    {
+                        var line = file.ReadLine();
+                        if (line != null && line.StartsWith("INSERT"))
+                        {
+                            count++;
+                            if (first || count >= BatchSize)
+                            {
+                                output.WriteLine(line.Replace("VALUES", "VALUES\r\n"));
+                                first = false;
+                                count = 0;
+                            }
+                            else
+                            {
+                                line = Regex.Replace(line, "INSERT.*VALUES", " ,");
+                                output.WriteLine(line);
+                            }
+                        }
+                        else
+                        {
+                            output.WriteLine(line);
+                            first = true;
+                            count = 0;
+                        }
+                    } while (!file.EndOfStream);
+                }
             }
             Console.Write("done.");
         }
