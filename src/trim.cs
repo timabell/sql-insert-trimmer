@@ -66,7 +66,7 @@ namespace SqlTrimmer
                             count++;
                             if (first || count >= BatchSize)
                             {
-                                output.WriteLine(line.Replace("VALUES", "VALUES\r\n"));
+                                output.WriteLine(line.Replace("VALUES", "VALUES\r\n  "));
                                 first = false;
                                 count = 0;
                             }
