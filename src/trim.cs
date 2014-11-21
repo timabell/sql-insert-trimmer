@@ -1,21 +1,5 @@
 namespace SqlTrimmer
 {
-    /*
-    # based on https://gist.github.com/timabell/94b55a12db4c6ee42e10
-    # takes generated SQL for INSERTing records on mass and strips repetition of column names
-    # modern sql server accepts multiple rows separated by commas in one insert block
-
-    # before
-    # INSERT (x,y,z) VALUES (1,2,3)
-    # INSERT (x,y,z) VALUES (1,2,3)
-    # INSERT (x,y,z) VALUES (1,2,3)
-
-    # after
-    # INSERT (x,y,z) VALUES
-    #   (1,2,3)
-    # , (1,2,3)
-    # , (1,2,3)
-     */
     using System;
     using System.IO;
     using System.Text.RegularExpressions;
