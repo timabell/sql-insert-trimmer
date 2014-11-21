@@ -9,13 +9,17 @@ Based on https://gist.github.com/timabell/94b55a12db4c6ee42e10
 takes generated SQL for INSERTing records on mass and strips repetition of column names
 modern sql server accepts multiple rows separated by commas in one insert block
 
-# before
+# Licence
+
+MIT licenced - http://opensource.org/licenses/MIT
+
+# Before
 
     INSERT (x,y,z) VALUES (1,2,3)
     INSERT (x,y,z) VALUES (1,2,3)
     INSERT (x,y,z) VALUES (1,2,3)
 
-# after
+# After
 
     INSERT (x,y,z) VALUES
       (1,2,3)
@@ -24,3 +28,7 @@ modern sql server accepts multiple rows separated by commas in one insert block
 
 It batches into blocks of 100 because sql server can only handle 1000 value rows at once,
 and there's a performance balance - http://stackoverflow.com/a/8640583/10245
+
+# Usage
+
+    sql-insert-trimmer.exe data-script.sql
