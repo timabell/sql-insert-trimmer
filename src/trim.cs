@@ -40,7 +40,7 @@ namespace SqlTrimmer
             var count = 0;
             using (var file = File.OpenText(path))
             {
-                using (var output = new StreamWriter(tempPath))
+                using (var output = new StreamWriter(tempPath, false, file.CurrentEncoding))
                 {
                     do
                     {
