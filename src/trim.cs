@@ -38,13 +38,13 @@ namespace SqlTrimmer
             var tempPath = path + ".tmp";
             var first = true;
             var count = 0;
-            using (var file = File.OpenText(path))
+            using (var input = File.OpenText(path))
             {
-                using (var output = new StreamWriter(tempPath, false, file.CurrentEncoding))
+                using (var output = new StreamWriter(tempPath, false, input.CurrentEncoding))
                 {
                     do
                     {
-                        var line = file.ReadLine();
+                        var line = input.ReadLine();
                         if (line != null && line.StartsWith("INSERT"))
                         {
                             count++;
@@ -66,7 +66,7 @@ namespace SqlTrimmer
                             first = true;
                             count = 0;
                         }
-                    } while (!file.EndOfStream);
+                    } while (!input.EndOfStream);
                 }
             }
             var backupPath = path + ".orig";
