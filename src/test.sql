@@ -3,6 +3,10 @@ use it -- or lose it
 set identity_INSERT foo on
 INSERT into foo (x, y) VALUES (1,2)
 set identity_INSERT foo on
+set identity_INSERT flibble on
+INSERT into flibble (a, b) VALUES (1,'oranges for £0.20')
+INSERT into flibble (a, b) VALUES (1,'apples for £1.99/lb')
+set identity_INSERT flibble on
 set identity_INSERT bar on
 INSERT into bar (x, y) VALUES (1,2)
 INSERT into bar (x, y) VALUES (2,2)
