@@ -1,8 +1,11 @@
 namespace SqlTrimmer
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
+    using System.Reflection;
     using System.Text.RegularExpressions;
+
 
     public class Trimmer
     {
@@ -12,10 +15,20 @@ namespace SqlTrimmer
             if (args.Length < 1)
             {
                 Console.Out.WriteLine("Usage: trim.exe file-to-trim.sql");
+                Console.Out.WriteLine("https://github.com/timabell/sql-insert-trimmer");
+                Console.Out.WriteLine("Version " + GetVersion());
                 return 1;
             }
             e.Trim(args[0]);
             return 0; // all good
+        }
+
+        private static string GetVersion()
+        {
+            // http://stackoverflow.com/a/909583/10245
+            var assembly = Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.FileVersion;
         }
     }
 
